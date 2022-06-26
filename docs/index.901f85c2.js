@@ -504,6 +504,8 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"edeGs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Game", ()=>Game);
 var _pixiJs = require("pixi.js");
 var _scorpionPng = require("./images/scorpion.png");
 var _scorpionPngDefault = parcelHelpers.interopDefault(_scorpionPng);
@@ -511,34 +513,82 @@ var _subZeroPng = require("./images/subZero.png");
 var _subZeroPngDefault = parcelHelpers.interopDefault(_subZeroPng);
 var _background3Png = require("./images/background3.png");
 var _background3PngDefault = parcelHelpers.interopDefault(_background3Png);
+var _blastPng = require("./images/blast.png");
+var _blastPngDefault = parcelHelpers.interopDefault(_blastPng);
 var _scorpion = require("./scorpion");
 var _subzero = require("./subzero");
+var _blast = require("./blast");
 class Game {
+    blast = [];
+    backgroundTextures = [];
     constructor(){
         // create a pixi canvas
         this.pixi = new _pixiJs.Application({
-            width: 1366,
-            height: 768
+            width: window.innerWidth,
+            height: window.innerHeight
         });
         document.body.appendChild(this.pixi.view);
         // preload all our textures
-        this.loader = new _pixiJs.Loader();
-        this.loader.add("scorpionImage", (0, _scorpionPngDefault.default)).add("backgroundImage", (0, _background3PngDefault.default)).add("subZeroImage", (0, _subZeroPngDefault.default));
-        this.loader.load(()=>this.loadCompleted());
-    // after loading is complete, create a fish sprite
+        this.pixi.loader = new _pixiJs.Loader();
+        this.pixi.loader.add("scorpionImage", (0, _scorpionPngDefault.default)).add("backgroundImage", (0, _background3PngDefault.default)).add("subZeroImage", (0, _subZeroPngDefault.default)).add("blastImage", (0, _blastPngDefault.default));
+        // .add("spritesheetbg5", "spritesheetbg5.json")
+        this.pixi.loader.load(()=>this.loadCompleted());
     }
     loadCompleted() {
-        let background = new _pixiJs.Sprite(this.loader.resources["backgroundImage"].texture);
+        let background = new _pixiJs.Sprite(this.pixi.loader.resources["backgroundImage"].texture);
         this.pixi.stage.addChild(background);
-        let scorpion = new (0, _scorpion.Scorpion)(this.loader.resources["scorpionImage"].texture);
-        this.pixi.stage.addChild(scorpion);
-        let subZero = new (0, _subzero.SubZero)(this.loader.resources["subZeroImage"].texture);
-        this.pixi.stage.addChild(subZero);
+        this.scorpion = new (0, _scorpion.Scorpion)(this.pixi.loader.resources["scorpionImage"].texture);
+        this.pixi.stage.addChild(this.scorpion);
+        this.subZero = new (0, _subzero.SubZero)(this.pixi.loader.resources["subZeroImage"].texture);
+        this.pixi.stage.addChild(this.subZero);
+        // for (let i = 0; i < 21; i++) {
+        //     const texture = PIXI.Texture.from(`spritesheet5 ${i + 1}.png`)
+        //     this.backgroundTextures.push(texture)
+        // }
+        // createBackground(),{}
+        this.pixi.ticker.add((delta)=>this.update(delta));
+    }
+    // createBackground() {
+    //     const background = new PIXI.AnimatedSprite(this.backgroundTextures)
+    //     // kaboom.x = 100
+    //     // kaboom.y = 100
+    //     // kaboom.anchor.set(0.5)
+    //     background.play()
+    //     this.pixi.stage.addChild(background)
+    // }
+    //update
+    update(delta) {
+        this.subZero.update(delta);
+        this.scorpion.update(delta);
+        for (let blast of this.blast)blast.update();
+        // check collisions
+        this.checkCollisions();
+    }
+    addBlast(x, y) {
+        let b = new (0, _blast.Blast)(this.loader.resources["blast"].texture, this, x, y);
+        this.blast.push(b);
+        this.pixi.stage.addChild(b);
+    }
+    removeBlast(blast) {
+        this.blast = this.blast.filter((b)=>b != blast);
+        blast.destroy();
+    }
+    checkCollisions() {
+        for (let blast of this.blast)if (this.collision(blast, this.subZero, this.scorpion)) {
+            this.removeBlast(blast);
+            console.log(-10);
+            break;
+        }
+    }
+    collision(blast, subZero, scorpion) {
+        const bounds1 = blast.getBounds();
+        const bounds2 = subZero.getBounds();
+        return bounds1.x < bounds2.x + bounds2.width && bounds1.x + bounds1.width > bounds2.x && bounds1.y < bounds2.y + bounds2.height && bounds1.y + bounds1.height > bounds2.y;
     }
 }
 new Game();
 
-},{"pixi.js":"dsYej","./images/scorpion.png":"8LTsb","./images/subZero.png":"3NUrc","./images/background3.png":"jKWBM","./scorpion":"zKu2c","./subzero":"euUMw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dsYej":[function(require,module,exports) {
+},{"pixi.js":"dsYej","./images/scorpion.png":"8LTsb","./images/subZero.png":"3NUrc","./scorpion":"zKu2c","./subzero":"euUMw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./images/background3.png":"jKWBM","./images/blast.png":"fQIBD","./blast":"4Of8V"}],"dsYej":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "utils", ()=>_utils);
@@ -38529,22 +38579,66 @@ exports.getOrigin = getOrigin;
 },{}],"3NUrc":[function(require,module,exports) {
 module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "subZero.64495735.png" + "?" + Date.now();
 
-},{"./helpers/bundle-url":"lgJ39"}],"jKWBM":[function(require,module,exports) {
-module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "background3.ed8c7e74.png" + "?" + Date.now();
-
 },{"./helpers/bundle-url":"lgJ39"}],"zKu2c":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Scorpion", ()=>Scorpion);
 var _pixiJs = require("pixi.js");
 class Scorpion extends _pixiJs.Sprite {
+    xSpeed = 0;
+    ySpeed = 0;
+    health = 100;
     constructor(texture){
         super(texture);
         this.x = 1300;
-        this.y = 100;
+        this.y = 280;
         this.scale.set(-1, 1);
         this.width = 100;
         this.height = 200;
+        //eventlistener for movement
+        window.addEventListener("keydown", (e)=>this.onKeyDown(e));
+        window.addEventListener("keyup", (e)=>this.onKeyUp(e));
+    }
+    //keyboard input clickevent check voor WASD-keys
+    onKeyDown(e) {
+        switch(e.key.toUpperCase()){
+            case ".":
+                this.shoot();
+            case "ARROWLEFT":
+                this.xSpeed = -4;
+                break;
+            case "ARROWRIGHT":
+                this.xSpeed = 4;
+                break;
+            //ARROWUP is for jump
+            case "ARROWUP":
+                break;
+            //ARROWDOWN is for duck
+            case "ARROWDOWN":
+                break;
+        }
+    }
+    onKeyUp(e) {
+        switch(e.key.toUpperCase()){
+            case ".":
+                this.shoot();
+                break;
+            case "ARROWLEFT":
+            case "ARROWRIGHT":
+                this.xSpeed = 0;
+                break;
+            case "ARROWUP":
+            case "ARROWDOWN":
+                this.ySpeed = 0;
+                break;
+        }
+    }
+    update(delta) {
+        this.x += this.xSpeed * delta;
+        this.y += this.ySpeed * delta;
+    }
+    shoot() {
+        this.game.addBlast(this.x + 80, this.y + 35);
     }
 }
 
@@ -38554,12 +38648,84 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SubZero", ()=>SubZero);
 var _pixiJs = require("pixi.js");
 class SubZero extends _pixiJs.Sprite {
+    xSpeed = 0;
+    ySpeed = 0;
+    health = 100;
     constructor(texture){
         super(texture);
         this.x = 100;
-        this.y = 100;
+        this.y = 280;
         this.width = 100;
         this.height = 200;
+        //eventlistener for movement
+        window.addEventListener("keydown", (e)=>this.onKeyDown(e));
+        window.addEventListener("keyup", (e)=>this.onKeyUp(e));
+    }
+    //keyboard input clickevent check voor WASD-keys
+    onKeyDown(e) {
+        switch(e.key.toUpperCase()){
+            case "F":
+                this.shoot();
+                break;
+            case "A":
+                this.xSpeed = -4;
+                break;
+            case "D":
+                this.xSpeed = 4;
+                break;
+            case "W":
+                break;
+            case "S":
+                break;
+        }
+    }
+    onKeyUp(e) {
+        switch(e.key.toUpperCase()){
+            case "F":
+                this.shoot();
+                break;
+            case "A":
+            case "D":
+                this.xSpeed = 0;
+                break;
+            case "W":
+            case "S":
+                this.ySpeed = 0;
+                break;
+        }
+    }
+    update(delta) {
+        this.x += this.xSpeed * delta;
+        this.y += this.ySpeed * delta;
+    }
+    shoot() {
+        this.game.addBlast(this.x + 80, this.y + 35);
+    }
+}
+
+},{"pixi.js":"dsYej","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jKWBM":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "background3.ed8c7e74.png" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"fQIBD":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "blast.453c8463.png" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"4Of8V":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Blast", ()=>Blast);
+var _pixiJs = require("pixi.js");
+class Blast extends _pixiJs.Sprite {
+    constructor(texture, game, x, y){
+        super(texture);
+        this.game = game;
+        this.pivot.x = 30;
+        this.pivot.y = 30;
+        this.x = x - 50;
+        this.y = y + 50;
+    }
+    update() {
+        this.x += 3;
+        if (this.x > 1450) this.game.removeBlast(this);
     }
 }
 
