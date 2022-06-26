@@ -21,7 +21,7 @@ export class SubZero extends PIXI.Sprite {
     }
 
     //keyboard input clickevent check voor WASD-keys
-    onKeyDown(e: KeyboardEvent): void {
+    private onKeyDown(e: KeyboardEvent): void {
         switch (e.key.toUpperCase()) {
             case "F":
                 this.shoot()
