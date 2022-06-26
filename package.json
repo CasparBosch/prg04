@@ -9,7 +9,7 @@
     "typescript": "^4.6.4"
   },
   "scripts": {
-    "start": "parcel src/index.html --dist-dir docs",
-    "build": "parcel build src/index.html --dist-dir docs --public-url ./"
+    "start": "parcel index.html --dist-dir docs",
+    "build": "parcel build index.html --dist-dir docs --public-url ./"
   }
 }
