@@ -588,7 +588,7 @@ class Game {
 }
 new Game();
 
-},{"pixi.js":"dsYej","./images/scorpion.png":"8LTsb","./images/subZero.png":"3NUrc","./scorpion":"zKu2c","./subzero":"euUMw","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./images/background3.png":"jKWBM","./images/blast.png":"fQIBD","./blast":"4Of8V"}],"dsYej":[function(require,module,exports) {
+},{"pixi.js":"dsYej","./images/scorpion.png":"8LTsb","./images/subZero.png":"3NUrc","./images/background3.png":"jKWBM","./images/blast.png":"fQIBD","./scorpion":"zKu2c","./subzero":"euUMw","./blast":"4Of8V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dsYej":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "utils", ()=>_utils);
@@ -38579,6 +38579,12 @@ exports.getOrigin = getOrigin;
 },{}],"3NUrc":[function(require,module,exports) {
 module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "subZero.64495735.png" + "?" + Date.now();
 
+},{"./helpers/bundle-url":"lgJ39"}],"jKWBM":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "background3.ed8c7e74.png" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"fQIBD":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "blast.453c8463.png" + "?" + Date.now();
+
 },{"./helpers/bundle-url":"lgJ39"}],"zKu2c":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -38703,13 +38709,7 @@ class SubZero extends _pixiJs.Sprite {
     }
 }
 
-},{"pixi.js":"dsYej","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jKWBM":[function(require,module,exports) {
-module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "background3.ed8c7e74.png" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"lgJ39"}],"fQIBD":[function(require,module,exports) {
-module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "blast.453c8463.png" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"lgJ39"}],"4Of8V":[function(require,module,exports) {
+},{"pixi.js":"dsYej","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4Of8V":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Blast", ()=>Blast);
