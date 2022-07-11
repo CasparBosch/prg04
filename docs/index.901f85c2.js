@@ -511,8 +511,8 @@ var _scorpionPng = require("./images/scorpion.png");
 var _scorpionPngDefault = parcelHelpers.interopDefault(_scorpionPng);
 var _subZeroPng = require("./images/subZero.png");
 var _subZeroPngDefault = parcelHelpers.interopDefault(_subZeroPng);
-var _background3Png = require("./images/background3.png");
-var _background3PngDefault = parcelHelpers.interopDefault(_background3Png);
+var _backgroundPng = require("./images/background.png");
+var _backgroundPngDefault = parcelHelpers.interopDefault(_backgroundPng);
 var _blastPng = require("./images/blast.png");
 var _blastPngDefault = parcelHelpers.interopDefault(_blastPng);
 var _scorpion = require("./scorpion");
@@ -524,13 +524,13 @@ class Game {
     constructor(){
         // create a pixi canvas
         this.pixi = new _pixiJs.Application({
-            width: window.innerWidth,
-            height: window.innerHeight
+            width: 543,
+            height: 242
         });
         document.body.appendChild(this.pixi.view);
         // preload all our textures
         this.pixi.loader = new _pixiJs.Loader();
-        this.pixi.loader.add("scorpionImage", (0, _scorpionPngDefault.default)).add("backgroundImage", (0, _background3PngDefault.default)).add("subZeroImage", (0, _subZeroPngDefault.default)).add("blastImage", (0, _blastPngDefault.default));
+        this.pixi.loader.add("scorpionImage", (0, _scorpionPngDefault.default)).add("backgroundImage", (0, _backgroundPngDefault.default)).add("subZeroImage", (0, _subZeroPngDefault.default)).add("blastImage", (0, _blastPngDefault.default));
         // .add("spritesheetbg5", "spritesheetbg5.json")
         this.pixi.loader.load(()=>this.loadCompleted());
     }
@@ -588,7 +588,7 @@ class Game {
 }
 new Game();
 
-},{"pixi.js":"dsYej","./images/scorpion.png":"8LTsb","./images/subZero.png":"3NUrc","./images/background3.png":"jKWBM","./images/blast.png":"fQIBD","./scorpion":"zKu2c","./subzero":"euUMw","./blast":"4Of8V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dsYej":[function(require,module,exports) {
+},{"pixi.js":"dsYej","./images/scorpion.png":"8LTsb","./images/subZero.png":"3NUrc","./images/background.png":"fwQMR","./images/blast.png":"fQIBD","./scorpion":"zKu2c","./subzero":"euUMw","./blast":"4Of8V","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dsYej":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "utils", ()=>_utils);
@@ -38579,8 +38579,8 @@ exports.getOrigin = getOrigin;
 },{}],"3NUrc":[function(require,module,exports) {
 module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "subZero.64495735.png" + "?" + Date.now();
 
-},{"./helpers/bundle-url":"lgJ39"}],"jKWBM":[function(require,module,exports) {
-module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "background3.ed8c7e74.png" + "?" + Date.now();
+},{"./helpers/bundle-url":"lgJ39"}],"fwQMR":[function(require,module,exports) {
+module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "background.84053517.png" + "?" + Date.now();
 
 },{"./helpers/bundle-url":"lgJ39"}],"fQIBD":[function(require,module,exports) {
 module.exports = require("./helpers/bundle-url").getBundleURL("emE5o") + "blast.453c8463.png" + "?" + Date.now();
@@ -38596,11 +38596,11 @@ class Scorpion extends _pixiJs.Sprite {
     health = 100;
     constructor(texture){
         super(texture);
-        this.x = 1300;
-        this.y = 280;
-        this.scale.set(-1, 1);
-        this.width = 100;
-        this.height = 200;
+        this.x = 375;
+        this.y = 125;
+        this.width = 40;
+        this.height = 80;
+        this.scale.set(-0.15, 0.15);
         //eventlistener for movement
         window.addEventListener("keydown", (e)=>this.onKeyDown(e));
         window.addEventListener("keyup", (e)=>this.onKeyUp(e));
@@ -38659,10 +38659,10 @@ class SubZero extends _pixiJs.Sprite {
     health = 100;
     constructor(texture){
         super(texture);
-        this.x = 100;
-        this.y = 280;
-        this.width = 100;
-        this.height = 200;
+        this.x = 20;
+        this.y = 125;
+        this.width = 40;
+        this.height = 80;
         //eventlistener for movement
         window.addEventListener("keydown", (e)=>this.onKeyDown(e));
         window.addEventListener("keyup", (e)=>this.onKeyUp(e));

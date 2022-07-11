@@ -10,11 +10,11 @@ export class Scorpion extends PIXI.Sprite {
 
     constructor(texture:PIXI.Texture){
         super(texture)
-        this.x = 1300
-        this.y = 280
-        this.scale.set(-1,1)
-        this.width = 100
-        this.height = 200
+        this.x = 375
+        this.y = 125
+        this.width = 40
+        this.height = 80
+        this.scale.set(-0.15,0.15)
 
         //eventlistener for movement
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));

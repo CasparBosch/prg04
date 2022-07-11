@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
 import scorpionImage from "./images/scorpion.png"
 import subZeroImage from "./images/subZero.png"
-import backgroundImage from "./images/background3.png"
+import backgroundImage from "./images/background.png"
 import blastImage from "./images/blast.png"
 import { Scorpion } from './scorpion'
 import { SubZero } from './subzero'
@@ -18,7 +18,7 @@ export class Game {
 
     constructor() {
         // create a pixi canvas
-        this.pixi = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight })
+        this.pixi = new PIXI.Application({ width: 543, height: 242 })
         document.body.appendChild(this.pixi.view)
 
         // preload all our textures

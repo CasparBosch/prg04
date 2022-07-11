@@ -10,10 +10,10 @@ export class SubZero extends PIXI.Sprite {
 
     constructor(texture: PIXI.Texture) {
         super(texture)
-        this.x = 100
-        this.y = 280
-        this.width = 100
-        this.height = 200
+        this.x = 20
+        this.y = 125
+        this.width = 40
+        this.height = 80
 
         //eventlistener for movement
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e));
